@@ -19,24 +19,24 @@ try {
 	   }
 	  table[i] = helper;
 	}
-	var rule = "width: 10px;height: 10px;position: absolute;background-color: black;";
 
 	function drawpixel(x, y) {
 
 		var rx = x*size;
 		var ry = y*size;
 		var example = document.getElementById('renderer');
-        var context = example.getContext('2d');
-        context.fillStyle = 'black';
-        context.fillRect(rx, ry, size, size);
+                var context = example.getContext('2d');
+                context.fillStyle = 'black';
+                context.fillRect(rx, ry, size, size);
+		return 0;
 	}
 
 	function flush() {
 
 		var example = document.getElementById('renderer');
-        var context = example.getContext('2d');
-        context.fillStyle = 'white';
-        context.fillRect(0, 0, size*xsize, size*ysize);
+                var context = example.getContext('2d');
+                context.fillStyle = 'white';
+                context.fillRect(0, 0, size*xsize, size*ysize);
 		return 0;
 	}
 
