@@ -1,0 +1,107 @@
+<script>
+try {
+	var table = [];
+	var states = [true, false];
+	var xsize = 100;
+	var ysize = 100;
+	var size = 10;
+	for (var i = 0; i < xsize; i++) {
+	   var helper = [];
+	   for (var j = 0; j < ysize; j++) {
+		   var random = Math.random();
+		   if (random > 0.5) {
+			   helper[j] = true;
+		   }
+		   else {
+			   helper[j] = false;
+		   }
+	   }
+	  table[i] = helper;
+	}
+	var rule = "width: 10px;height: 10px;position: absolute;background-color: black;";
+
+	function drawpixel(x, y) {
+
+		var rx = x*size;
+		var ry = y*size;
+		var example = document.getElementById('renderer');
+        var context = example.getContext('2d');
+        context.fillStyle = 'black';
+        context.fillRect(rx, ry, size, size);
+	}
+
+	function flush() {
+
+		var example = document.getElementById('renderer');
+        var context = example.getContext('2d');
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, size*xsize, size*ysize);
+		return 0;
+	}
+
+	function neighbors(seq, i, j) {
+    var directions = [{ x: 0, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 1, y: 0 }, { x: 1, y: -1 }];
+
+    return directions.reduce((r, { x, y }) => {
+            x += i;
+            y += j;
+            return r + (x in seq && seq[x][y] || 0);
+        }, 0);
+
+    }
+	
+	function drawpixels(seq){
+	    
+	   for(var y = 0; y < ysize; y++) {
+	       for (var x = 0; x < xsize; x++) {
+		       if (seq[y][x]){
+			       drawpixel(x, y);
+			   }
+		   }
+	   }
+	   return 0;
+
+	    
+	}
+
+	function DoLifeIter(seq){
+	   var acts = [];
+	   flush();
+	   for(var y = 0; y < ysize; y++) {
+	       for (var x = 0; x < xsize; x++) {
+		   	   var n = neighbors(seq, y, x);
+		       if (seq[y][x]){
+				   if (n < 2){
+				       acts.push([y, x, false]);
+				   }
+				   if (n == 2 || n == 3){
+				       acts.push([y, x, true]);
+				   }
+				   if (n > 3) {
+				       acts.push([y, x, false]);
+				   }
+			   }
+			   else {
+			      if (n == 3) {
+				      acts.push([y, x, true]);
+				  }
+			   
+			   }
+		   }
+	   }
+	   for (var i = 0; i < acts.length; i++) {
+	       table[acts[i][0]][acts[i][1]] = acts[i][2];
+	
+	   }
+	   drawpixels(table);
+	   return 0;
+	}
+	function life() {
+	   DoLifeIter(table);
+	}
+}
+catch(error) {
+    alert(error.message);
+
+}
+setInterval(life, 20);
