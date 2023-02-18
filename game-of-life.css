@@ -1,0 +1,9 @@
+canvas {
+	border: 1px solid black;
+}
+
+#game-canvas {
+	display: block;
+	height: 90vh;
+	margin: 0 auto;
+}
