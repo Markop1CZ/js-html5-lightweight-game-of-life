@@ -80,9 +80,8 @@ function draw_pixel(x, y) {
 function draw_table(table){
 	for(var y = 0; y < h; y++) {
 		for (var x = 0; x < w; x++) {
-			if (table[y][x]){
+			if (table[y][x])
 				draw_pixel(x, y);
-			}
 		}
 	}
 }
@@ -118,4 +117,4 @@ function gol_init() {
 
 window.addEventListener('load', function () {
 	gol_init();
-})
+});
