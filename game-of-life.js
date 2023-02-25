@@ -64,7 +64,7 @@ function life_iterate_table(table) {
 			}
 			else {
 				if (n == 3)
-					table[y][x] = true
+					table[y][x] = true;
 			}
 		}
 	}
